@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
 import org.goobi.beans.Process;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
@@ -17,11 +16,12 @@ import org.goobi.production.plugin.interfaces.IStepPlugin;
 
 import de.sub.goobi.helper.Helper;
 import de.sub.goobi.helper.StorageProvider;
+import lombok.extern.log4j.Log4j2;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
+@Log4j2
 public class ImageDuplicatorPlugin implements IStepPlugin, IPlugin {
-    private static final Logger logger = Logger.getLogger(ImageDuplicatorPlugin.class);
     private static final String PLUGIN_NAME = "intranda_step_imageDuplicator";
 
     private String returnPath;
@@ -56,7 +56,7 @@ public class ImageDuplicatorPlugin implements IStepPlugin, IPlugin {
             Path mediaFolder = Paths.get(process.getImagesTifDirectory(false));
             StorageProvider.getInstance().copyDirectory(masterFolder, mediaFolder);
         } catch (Exception e) {
-            logger.error("Error while converting images", e);
+            log.error("Error while converting images", e);
             Helper.addMessageToProcessLog(process.getId(), LogType.ERROR, "Error while converting images in ImageConverterPlugin: " + e.getMessage());
         }
         return true;

@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.goobi.beans.Process;
 import org.goobi.beans.Step;
 import org.goobi.production.enums.LogType;
@@ -35,11 +34,12 @@ import de.unigoettingen.sub.commons.contentlib.exceptions.ImageManipulatorExcept
 import de.unigoettingen.sub.commons.contentlib.imagelib.ImageInterpreter;
 import de.unigoettingen.sub.commons.contentlib.imagelib.ImageManager;
 import de.unigoettingen.sub.commons.contentlib.imagelib.JpegInterpreter;
+import lombok.extern.log4j.Log4j2;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
+@Log4j2
 @PluginImplementation
 public class ImageConverterPlugin implements IStepPlugin, IPlugin {
-    private static final Logger logger = Logger.getLogger(ImageConverterPlugin.class);
     private static final String PLUGIN_NAME = "intranda_step_imageConverter";
 
     private String returnPath;
@@ -74,7 +74,7 @@ public class ImageConverterPlugin implements IStepPlugin, IPlugin {
             Path mediaFolder = Paths.get(process.getImagesTifDirectory(false));
             convertMasterToJpeg(masterFolder, mediaFolder);
         } catch (SwapException | DAOException | IOException | InterruptedException | ContentLibException e) {
-            logger.error("Error while converting images", e);
+            log.error("Error while converting images", e);
             Helper.addMessageToProcessLog(process.getId(), LogType.ERROR, "Error while converting images in ImageConverterPlugin: " + e.getMessage());
         }
         return true;
@@ -127,7 +127,7 @@ public class ImageConverterPlugin implements IStepPlugin, IPlugin {
 
         // if no images can be found, stop here
         if (images == null || images.isEmpty()) {
-            logger.error("No tif or jpeg images found in master folder " + masterFolder.toString());
+            log.error("No tif or jpeg images found in master folder " + masterFolder.toString());
             return false;
         }
 
