@@ -1,10 +1,8 @@
 package de.intranda.goobi.plugins;
 
 import java.awt.image.RenderedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -29,8 +27,6 @@ import de.sub.goobi.helper.StorageProvider;
 import de.sub.goobi.helper.exceptions.DAOException;
 import de.sub.goobi.helper.exceptions.SwapException;
 import de.unigoettingen.sub.commons.contentlib.exceptions.ContentLibException;
-import de.unigoettingen.sub.commons.contentlib.exceptions.ImageManagerException;
-import de.unigoettingen.sub.commons.contentlib.exceptions.ImageManipulatorException;
 import de.unigoettingen.sub.commons.contentlib.imagelib.ImageInterpreter;
 import de.unigoettingen.sub.commons.contentlib.imagelib.ImageManager;
 import de.unigoettingen.sub.commons.contentlib.imagelib.JpegInterpreter;
@@ -57,7 +53,7 @@ public class ImageConverterPlugin implements IStepPlugin, IPlugin {
     }
 
     public String getDescription() {
-        return PLUGIN_NAME;
+        return getTitle();
     }
 
     @Override
@@ -107,7 +103,6 @@ public class ImageConverterPlugin implements IStepPlugin, IPlugin {
 
     @Override
     public String getPagePath() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -119,7 +114,7 @@ public class ImageConverterPlugin implements IStepPlugin, IPlugin {
      * @return a boolean that shows if a problem occurred
      */
     private boolean convertMasterToJpeg(Path masterFolder, Path mediaFolder)
-            throws FileNotFoundException, IOException, ContentLibException, ImageManipulatorException, ImageManagerException, MalformedURLException {
+            throws IOException, ContentLibException {
         // get all image files from the master folder
 
         List<Path> images = StorageProvider.getInstance()

@@ -39,7 +39,7 @@ public class ImageDuplicatorPlugin implements IStepPlugin, IPlugin {
     }
 
     public String getDescription() {
-        return PLUGIN_NAME;
+        return getTitle();
     }
 
     @Override
@@ -89,7 +89,6 @@ public class ImageDuplicatorPlugin implements IStepPlugin, IPlugin {
 
     @Override
     public String getPagePath() {
-        // TODO Auto-generated method stub
         return null;
     }
 
