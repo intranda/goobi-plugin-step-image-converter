@@ -69,7 +69,7 @@ public class ImageConverterPlugin implements IStepPlugin, IPlugin {
             Path masterFolder = Paths.get(process.getImagesOrigDirectory(false));
             Path mediaFolder = Paths.get(process.getImagesTifDirectory(false));
             convertMasterToJpeg(masterFolder, mediaFolder);
-        } catch (SwapException | DAOException | IOException | InterruptedException | ContentLibException e) {
+        } catch (SwapException | DAOException | IOException | ContentLibException e) {
             log.error("Error while converting images", e);
             Helper.addMessageToProcessLog(process.getId(), LogType.ERROR, "Error while converting images in ImageConverterPlugin: " + e.getMessage());
         }
