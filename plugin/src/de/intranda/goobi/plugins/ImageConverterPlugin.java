@@ -72,6 +72,7 @@ public class ImageConverterPlugin implements IStepPlugin, IPlugin {
         } catch (SwapException | DAOException | IOException | ContentLibException e) {
             log.error("Error while converting images", e);
             Helper.addMessageToProcessLog(process.getId(), LogType.ERROR, "Error while converting images in ImageConverterPlugin: " + e.getMessage());
+            return false;
         }
         return true;
     }
